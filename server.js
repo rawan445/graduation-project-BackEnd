@@ -7,6 +7,12 @@ app.use(cors());
 
 ///////////////////////////////
 
+const AqarRoute = require("./routers/routes/AqarRoute");
+const signUpRoute = require("./routers/routes/signUpRoute");
+const loginRoute  = require("./routers/routes/loginRoute")
+app.use(AqarRoute);
+app.use(signUpRoute);
+app.use(loginRoute);
 
 
 ////////////////////
