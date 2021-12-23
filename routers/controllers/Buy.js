@@ -55,4 +55,19 @@ const deletBuy=async(req,res)=>{
     }
   };
 
-module.exports = { getBuys ,postBuy,deletBuy,getBuy };
+
+  //تحديث 
+  const updateBuy = async (req , res) => {
+    const id = req.params.id;
+    const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
+    try {
+      const updateBuy = await BuyModel.findOneAndUpdate( { _id: id },
+     { name,  price,   img,  location,  space,  city, mobileNumber, description }, { new: true });
+      res.status(201).json(updateBuy);
+    } catch (error) {
+      res.send({ message: error });
+    }
+  };
+
+
+module.exports = { getBuys ,postBuy,deletBuy,getBuy ,updateBuy };

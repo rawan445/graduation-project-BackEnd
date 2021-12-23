@@ -9,6 +9,7 @@ const BuyModel = new mongoose.Schema({
   city: { type: String },
   mobileNumber: { type: String },
   description: { type: String },
+  date: { type: Date, default: Date.now },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "userModel" },
 });
 
