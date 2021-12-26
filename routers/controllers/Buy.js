@@ -1,12 +1,25 @@
 const BuyModel= require("../../db/models/BuyModel")
+const userModel= require("../../db/models/userModel")
 
 // عرض جميع العقارات 
 const getBuys = async (req,res)=>{
     try {
-         const  Buy = await BuyModel.find({});
+    //   const check = await userModel.findOne({})
+    // console.log(check,"hhhhhhhhhhhhhh");
+    //   if(check.isAdmin == true){
+        const  Buy = await BuyModel.find({});
         res.status(200).json( Buy)
-    } catch (error){
+        // console.log("aaaaaaaaaaaaa");
+      // }else{
+      //   res.send("error")
+      //   console.log("nnnnnnnnnnnnnnnnnn");
+
+      // }
+      } catch (error){
         res.send(error)
+        console.log("xxxxx");
+
+        
     }
 }
 
@@ -25,10 +38,10 @@ const getBuy = async (req,res)=>{
 const postBuy=async(req,res)=>{
     const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
     const user =req.token.userId
-    const nrwAqar = new BuyModel({name,  price,   img,  location,  space,  city, mobileNumber, description})
+    const nrwAqar = new BuyModel({name,  price,   img,  location,  space,  city, mobileNumber, description ,user})
     try {
         const saved= await nrwAqar.save()
-         const Buy = await BuyModel.find({}).populate("user")
+        const Buy = await BuyModel.find({}).populate("user")
         res.status(200).json(Buy)
   
     } catch (error) {
@@ -38,21 +51,24 @@ const postBuy=async(req,res)=>{
 
 //حذف عقار 
 const deletBuy=async(req,res)=>{
-    const id = req.params.id;
-    // const user = req.token.userId;
-    // console.log(user);
-    try {
-      const del = await BuyModel.findOneAndDelete({ _id:id,
-        //  user: user
-         });
-      if (del){
-        res.send("deleted")
-      }else{
-        res.send("cant deleted")
-      }
-    } catch (err) {
-      res.send(err , "err");
+  const id = req.params.id;
+  const user = req.token.userId;
+  console.log("user : ",user);
+  try {
+    const a = await BuyModel.findOne({_id: id})
+    console.log("a" ,a);
+    const del = await BuyModel.findOneAndDelete({ _id: id, user: user });
+    console.log("id : ",id);
+    console.log("dal : ", del);
+    if (del){
+      console.log(del,"dddddddd");
+      res.send("deleted")
+    }else{
+      res.send("cant deleted")
     }
+  } catch (err) {
+    res.send(err , "err");
+  }
   };
 
 

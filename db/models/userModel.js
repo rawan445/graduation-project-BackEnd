@@ -3,9 +3,15 @@ const mongoose = require("mongoose");
 
 
 const userModel = new mongoose.Schema({
-  name: { type: String , required:true ,minlength:3, maxlength:44 },
-  email: { type: String ,unique:true , required:true ,minlength:3, maxlength:255  },
-  password: { type: String , required:true ,minlength:8, maxlength:1024 },
+  name: { type: String , required:true ,
+    // minlength:3, maxlength:44
+   },
+  email: { type: String ,unique:true , required:true 
+    // ,minlength:3, maxlength:255 
+   },
+  password: { type: String , required:true 
+    // ,minlength:8, maxlength:1024
+   },
   isAdmin:{type:Boolean , default:false}
 });
 

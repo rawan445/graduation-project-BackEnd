@@ -9,15 +9,17 @@ const login = async (req, res) => {
   try {
     const user = await userModel.findOne({ email: email });
     if (user) {
-      console.log(user,"user");
       const check = await bcrypt.compare(password, user.password);
 
       if (check === true) {
-        const payload = { userId: user._id, userName: user.name };
+        const payload = { userId: user._id, userName: user.name, isAdmin:user.isAdmin };
         const token = jwt.sign(payload, "ABC");
         res.status(200).json({ token });
+        console.log("user Name",user.name);
+        console.log("user Admin :",user.isAdmin );
+
+
       }
-      
     else {
         res.status(403).json("error PassWord!");
       }
