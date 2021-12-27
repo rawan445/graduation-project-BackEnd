@@ -38,7 +38,7 @@ const getBuy = async (req,res)=>{
 const postBuy=async(req,res)=>{
     const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
     const user =req.token.userId
-    const nrwAqar = new BuyModel({name,  price,   img,  location,  space,  city, mobileNumber, description ,user})
+    const nrwAqar = new BuyModel({name,  price,img,location,space,  city, mobileNumber, description ,user})
     try {
         const saved= await nrwAqar.save()
         const Buy = await BuyModel.find({}).populate("user")

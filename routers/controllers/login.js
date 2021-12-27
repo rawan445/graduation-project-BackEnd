@@ -15,8 +15,8 @@ const login = async (req, res) => {
         const payload = { userId: user._id, userName: user.name, isAdmin:user.isAdmin };
         const token = jwt.sign(payload, "ABC");
         res.status(200).json({ token });
-        console.log("user Name",user.name);
-        console.log("user Admin :",user.isAdmin );
+        console.log("welceme ",user.name ,"Admin :",user.isAdmin );
+        // console.log(" Admin :",);
 
 
       }
@@ -34,5 +34,9 @@ const login = async (req, res) => {
     res.send(error);
   }
 };
+
+
+
+
 
 module.exports = { login };
