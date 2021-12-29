@@ -1,69 +1,49 @@
 const BuyModel= require("../../db/models/BuyModel")
 const userModel= require("../../db/models/userModel")
 
-// عرض جميع العقارات 
+// all buys
 const getBuys = async (req,res)=>{
     try {
-    //   const check = await userModel.findOne({})
-    // console.log(check,"hhhhhhhhhhhhhh");
-    //   if(check.isAdmin == true){
         const  Buy = await BuyModel.find({});
         res.status(200).json( Buy)
-        // console.log("aaaaaaaaaaaaa");
-      // }else{
-      //   res.send("error")
-      //   console.log("nnnnnnnnnnnnnnnnnn");
-
-      // }
       } catch (error){
-        res.send(error)
-        // console.log("xxxxx");
-
-        
+        res.send(error)     
     }
 }
 
+// one buy
 const getBuy = async (req,res)=>{
   const {id} = req.params
   try {
        const  Buy = await BuyModel.findOne({ _id:id}).populate("user")
-      //  console.log(Buy);
       res.status(200).json( Buy)
   } catch (error){
       res.send(error)
   }
 }
 
-//أضافه عقار
+// add buy
 const postBuy=async(req,res)=>{
     const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
     const user =req.token.userId
     const nrwAqar = new BuyModel({name,  price,img,location,space,  city, mobileNumber, description ,user})
     try {
         const saved= await nrwAqar.save()
-        const Buy = await BuyModel.find({}).populate("user")
-        res.status(200).json(Buy)
+        res.status(200).json(saved)
   
     } catch (error) {
         res.send(error)
     }
 }
 
-
-//حذف عقار 
+//delete buy
 const deletBuy=async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
-
-  // console.log("user : ",user);
   try {
     const a = await BuyModel.findOne({_id: id})
-    // console.log("a" ,a);
     const del = await BuyModel.findOneAndDelete({ _id: id, user: user });
-    // console.log("id : ",id);
-    // console.log("dal : ", del);
     if (del ){
-      // console.log(del,"dddddddd");
       res.send("deleted")
     }else{
       res.send("cant deleted")
@@ -73,39 +53,8 @@ const deletBuy=async(req,res)=>{
   }
   };
 
-  
-  const deletBuyAdmin=async(req,res)=>{
-  
-    const id = req.params.id;
-  const user = req.token.userId;
-  // console.log("user : ",user);
-  try {
-    const check = await userModel.findOne({})
-    const a = await BuyModel.findOne({_id: id})
-    // console.log("a" ,a);
-    const del = await BuyModel.findOneAndDelete({ _id: id });
-
-    if(check.role == 1){
-
-    if (del){
-      console.log(del,"dddddddd");
-     
-      res.send(" role deleted")
-    }else{
-      res.send(" cant deleted")
-      // console.log("cant deleted");
-    }}else{
-      res.send("error")
-      // console.log("is not Admin",del);
-
-    }
-  } catch (err) {
-    res.send(err , "err");
-  }
-  };
-
-  //تحديث 
-  const updateBuy = async (req , res) => {
+// update buy
+const updateBuy = async (req , res) => {
     const id = req.params.id;
     const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
     try {
@@ -117,5 +66,27 @@ const deletBuy=async(req,res)=>{
     }
   };
 
+    //delete buy (Admin)
+    const deletBuyAdmin=async(req,res)=>{
+      const id = req.params.id;
+    try {
+      const check = await userModel.findOne({})
+      const del = await BuyModel.findOneAndDelete({ _id: id });
+  
+      if(check.role == 1){
+  
+      if (del){
+        console.log(del,"dddddddd");
+        res.send(" (Admin) deleted")
+      }else{
+        res.send(" is not Admin cant deleted")
+      }}else{
+        res.send("error")
+        console.log("is not Admin");
+      }
+    } catch (err) {
+      res.send(err , "err");
+    }
+    };
 
 module.exports = { getBuys ,postBuy,deletBuy,getBuy ,updateBuy ,deletBuyAdmin };

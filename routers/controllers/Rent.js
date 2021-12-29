@@ -1,6 +1,6 @@
 const RentModel= require("../../db/models/RentModel")
 
-// عرض ا
+//all Rents 
 const getRents = async (req,res)=>{
     try {
          const  Rent = await RentModel.find({});
@@ -9,7 +9,7 @@ const getRents = async (req,res)=>{
         res.send(error)
     }
 }
-//تفاصيل
+// one Rent
 const getRent = async (req,res)=>{
     const {id} = req.params
     try {
@@ -20,35 +20,23 @@ const getRent = async (req,res)=>{
         res.send(error)
     }
   }
-//أضافه عقار
-const postRent=async(req,res)=>{
+
+ // add Rent
+   const postRent=async(req,res)=>{
     const{name,price,img,location,space,city, mobileNumber, description}= req.body;
     const user =req.token.userId
     const newSale = new RentModel({name,price,img,location,space,city, mobileNumber, description ,user})
     try {
         const saved= await newSale.save()
-         const Rent = await RentModel.find({}).populate("user")
-        res.status(200).json(Rent)
+        //  const Rent = await RentModel.find({}).populate("user")
+        res.status(200).json(saved)
   
     } catch (error) {
         res.send(error)
     }
 }
-///
-// const deletRent = async (req, res) => {
-//     const id = req.params.id;
-//     const user = req.token.userId;
-//     try {
-//       const del = await RentModel.findOneAndDelete({ _id: id, user: user });
-//       if (del){
-//         res.send("deleted")
-//       }else{
-//         res.send("cant deleted")
-//       }
-//     } catch (err) {
-//       res.send(err , "err");
-//     }
 
+//delete Rent
 const deletRent=async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
@@ -70,6 +58,7 @@ const deletRent=async(req,res)=>{
   }
   };
 
+  // update Rent
 const updateRent = async (req , res) => {
   const id = req.params.id;
   const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
@@ -82,5 +71,26 @@ const updateRent = async (req , res) => {
   }
 };
 
+//delete Rent (Admin)
+const deletRentAdmin=async(req,res)=>{
+  const id = req.params.id;
+try {
+  const check = await userModel.findOne({})
+  const del = await RentModel.findOneAndDelete({ _id: id });
 
-module.exports = { getRents ,postRent,getRent ,deletRent,updateRent};
+  if(check.role == 1){
+
+  if (del){
+    console.log(del,"dddddddd");
+    res.send(" (Admin) deleted")
+  }else{
+    res.send(" is not Admin cant deleted")
+  }}else{
+    res.send("error")
+    console.log("is not Admin");
+  }
+} catch (err) {
+  res.send(err , "err");
+}
+};
+module.exports = { getRents ,postRent,getRent ,deletRent,updateRent ,deletRentAdmin};

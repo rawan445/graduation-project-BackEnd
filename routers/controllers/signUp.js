@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const userModel  = require("../../db/models/userModel")
 ////////////////
+
+ //add user
 const addUser = async(req, res) => {
   let { name, email, password } = req.body; 
   try {
@@ -13,10 +15,11 @@ const addUser = async(req, res) => {
       res.send(error)
   }
 };
+
+//all users (Admin)
 const getUser = async (req,res)=>{
   try {
       const check = await userModel.findOne({})
-    // console.log(check,"hhhhhhhhhhhhhh");
       if(check.role == 1){
         const  Buy = await userModel.find({});
         res.status(200).json( Buy)
@@ -33,35 +36,34 @@ const getUser = async (req,res)=>{
         
     }
 }
+ //one user  (Admin)
 const get1User= async (req,res)=>{
   const {id} = req.params
   try {
        const  Buy = await userModel.findOne({ _id:id})
        console.log(Buy);
       res.status(200).json( Buy)
-      console.log("ffffffffffff",Buy);
   } catch (error){
       res.send(error)
-      console.log("nnnnnnnnnnnnnnnnnn");
   }
 }
+
+//delete user  (Admin)
 const deletUser=async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
-  console.log("user : ",user);
+  // console.log("user : ",user);
   try {
     const check = await userModel.findOne({})
     const a = await userModel.findOne({_id: id})
     console.log("a" ,a);
     const del = await userModel.findOneAndDelete({ _id: id, user: user });
-
     if(check.role == 1){
-
     if (del){
       console.log(del,"dddddddd");
-      res.send("deleted")
+      res.send(" (Admin) deleted")
     }else{
-      res.send("cant deleted")
+      res.send(" is not Admin cant deleted")
     }}else{
       res.send("error")
       console.log("is not Admin");
@@ -71,7 +73,7 @@ const deletUser=async(req,res)=>{
     res.send(err , "err");
   }
   };
-
+// update user  (Admin)
   const putUser = async (req , res) => {
     const id = req.params.id;
     const{ name, email,role }= req.body;

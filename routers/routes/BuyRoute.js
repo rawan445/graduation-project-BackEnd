@@ -8,14 +8,17 @@ const { getBuys ,postBuy,deletBuy,getBuy ,updateBuy,deletBuyAdmin } = require(".
 
 
 //
-BuyRoute.get("/Buys", getBuys);
-BuyRoute.post("/Buy",authentication, postBuy);
+BuyRoute.get("/Buys", getBuys); //all buys 
+BuyRoute.get("/Buy/:id",authentication, getBuy); // one buy
+BuyRoute.post("/Buy",authentication, postBuy); // add buy
+BuyRoute.delete("/Buy/:id",authentication ,deletBuy) //delete buy
+BuyRoute.put("/Buy/:id",updateBuy); // update buy 
 
-BuyRoute.delete("/Buy/:id",authentication ,deletBuy)
-BuyRoute.delete("/BuyAdmin/:id",authentication ,deletBuyAdmin)
 
-BuyRoute.get("/Buy/:id",authentication, getBuy);
-BuyRoute.put("/Buy/:id",updateBuy);
+
+// Admin
+BuyRoute.delete("/BuyAdmin/:id",authentication ,deletBuyAdmin) //delete buy (Admin)
+
 
 //
 module.exports = BuyRoute;
