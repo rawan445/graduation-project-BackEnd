@@ -1,4 +1,4 @@
-const Joi = require("joi");
+// const Joi = require("joi");
 const mongoose = require("mongoose");
 
 
@@ -12,7 +12,10 @@ const userModel = new mongoose.Schema({
   password: { type: String , required:true 
     // ,minlength:8, maxlength:1024
    },
-  isAdmin:{type:Boolean , default:false}
+  role:{
+    type: Number,
+    default : 3,
+  },
 });
 
 // function userValidate(user){

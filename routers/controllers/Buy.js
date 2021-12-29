@@ -17,7 +17,7 @@ const getBuys = async (req,res)=>{
       // }
       } catch (error){
         res.send(error)
-        console.log("xxxxx");
+        // console.log("xxxxx");
 
         
     }
@@ -27,7 +27,7 @@ const getBuy = async (req,res)=>{
   const {id} = req.params
   try {
        const  Buy = await BuyModel.findOne({ _id:id}).populate("user")
-       console.log(Buy);
+      //  console.log(Buy);
       res.status(200).json( Buy)
   } catch (error){
       res.send(error)
@@ -49,19 +49,21 @@ const postBuy=async(req,res)=>{
     }
 }
 
+
 //حذف عقار 
 const deletBuy=async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
-  console.log("user : ",user);
+
+  // console.log("user : ",user);
   try {
     const a = await BuyModel.findOne({_id: id})
-    console.log("a" ,a);
+    // console.log("a" ,a);
     const del = await BuyModel.findOneAndDelete({ _id: id, user: user });
-    console.log("id : ",id);
-    console.log("dal : ", del);
-    if (del){
-      console.log(del,"dddddddd");
+    // console.log("id : ",id);
+    // console.log("dal : ", del);
+    if (del ){
+      // console.log(del,"dddddddd");
       res.send("deleted")
     }else{
       res.send("cant deleted")
@@ -71,13 +73,43 @@ const deletBuy=async(req,res)=>{
   }
   };
 
+  
+  const deletBuyAdmin=async(req,res)=>{
+  
+    const id = req.params.id;
+  const user = req.token.userId;
+  // console.log("user : ",user);
+  try {
+    const check = await userModel.findOne({})
+    const a = await BuyModel.findOne({_id: id})
+    // console.log("a" ,a);
+    const del = await BuyModel.findOneAndDelete({ _id: id });
+
+    if(check.role == 1){
+
+    if (del){
+      console.log(del,"dddddddd");
+     
+      res.send(" role deleted")
+    }else{
+      res.send(" cant deleted")
+      // console.log("cant deleted");
+    }}else{
+      res.send("error")
+      // console.log("is not Admin",del);
+
+    }
+  } catch (err) {
+    res.send(err , "err");
+  }
+  };
 
   //تحديث 
   const updateBuy = async (req , res) => {
     const id = req.params.id;
     const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
     try {
-      const updateBuy = await BuyModel.findOneAndUpdate( { _id: id },
+      const updateBuy = await BuyModel.findOneAndUpdate( { _id: id},
      { name,  price,   img,  location,  space,  city, mobileNumber, description }, { new: true });
       res.status(201).json(updateBuy);
     } catch (error) {
@@ -86,4 +118,4 @@ const deletBuy=async(req,res)=>{
   };
 
 
-module.exports = { getBuys ,postBuy,deletBuy,getBuy ,updateBuy };
+module.exports = { getBuys ,postBuy,deletBuy,getBuy ,updateBuy ,deletBuyAdmin };

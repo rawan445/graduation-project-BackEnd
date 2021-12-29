@@ -17,7 +17,7 @@ const getUser = async (req,res)=>{
   try {
       const check = await userModel.findOne({})
     // console.log(check,"hhhhhhhhhhhhhh");
-      if(check.isAdmin == true){
+      if(check.role == 1){
         const  Buy = await userModel.find({});
         res.status(200).json( Buy)
         console.log("is Admin");
@@ -33,8 +33,18 @@ const getUser = async (req,res)=>{
         
     }
 }
-
-
+const get1User= async (req,res)=>{
+  const {id} = req.params
+  try {
+       const  Buy = await userModel.findOne({ _id:id})
+       console.log(Buy);
+      res.status(200).json( Buy)
+      console.log("ffffffffffff",Buy);
+  } catch (error){
+      res.send(error)
+      console.log("nnnnnnnnnnnnnnnnnn");
+  }
+}
 const deletUser=async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
@@ -44,9 +54,8 @@ const deletUser=async(req,res)=>{
     const a = await userModel.findOne({_id: id})
     console.log("a" ,a);
     const del = await userModel.findOneAndDelete({ _id: id, user: user });
-    console.log("id : ",id);
-    console.log("dal : ", del);
-    if(check.isAdmin == true){
+
+    if(check.role == 1){
 
     if (del){
       console.log(del,"dddddddd");
@@ -65,12 +74,12 @@ const deletUser=async(req,res)=>{
 
   const putUser = async (req , res) => {
     const id = req.params.id;
-    const{ name, email,isAdmin }= req.body;
+    const{ name, email,role }= req.body;
     try {
       const check = await userModel.findOne({})
-      if(check.isAdmin == true){
+      if(check.role == 1){
       const updateBuy = await userModel.findOneAndUpdate( { _id: id },
-     { name, email ,isAdmin }, { new: true });
+     { name, email ,role }, { new: true });
       res.status(201).json(updateBuy);
     }else{
       res.send("error")
@@ -80,4 +89,4 @@ const deletUser=async(req,res)=>{
       res.send({ message: error });
     }
   };
-module.exports = { addUser,getUser , deletUser ,putUser};
+module.exports = { addUser,getUser , deletUser ,putUser,get1User};

@@ -12,11 +12,10 @@ const login = async (req, res) => {
       const check = await bcrypt.compare(password, user.password);
 
       if (check === true) {
-        const payload = { userId: user._id, userName: user.name, isAdmin:user.isAdmin };
+        const payload = { userId: user._id, userName: user.name,  role:user.role};
         const token = jwt.sign(payload, "ABC");
-        res.status(200).json({ token });
-        console.log("welceme ",user.name ,"Admin :",user.isAdmin );
-        // console.log(" Admin :",);
+        res.status(200).json({ token , payload});
+        console.log("welceme ",user.name ,"role :",user.role);
 
 
       }
