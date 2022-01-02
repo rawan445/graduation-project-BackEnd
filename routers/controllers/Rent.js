@@ -71,26 +71,28 @@ const updateRent = async (req , res) => {
   }
 };
 
+
 //delete Rent (Admin)
-const deletRentAdmin=async(req,res)=>{
-  const id = req.params.id;
-try {
-  const check = await userModel.findOne({})
-  const del = await RentModel.findOneAndDelete({ _id: id });
-
-  if(check.role == 1){
-
-  if (del){
-    console.log(del,"dddddddd");
-    res.send(" (Admin) deleted")
-  }else{
-    res.send(" is not Admin cant deleted")
-  }}else{
-    res.send("error")
-    console.log("is not Admin");
-  }
-} catch (err) {
-  res.send(err , "err");
-}
-};
-module.exports = { getRents ,postRent,getRent ,deletRent,updateRent ,deletRentAdmin};
+    // const deletRentAdmin=async(req,res)=>{
+    //   const id = req.params.id;
+    // try {
+    //   const check = await userModel.findOne({})
+    //   const del = await BuyModel.findOneAndDelete({ _id: id });
+  
+    //   if(check.role == 1){
+  
+    //   if (del){
+    //     console.log(del,"dddddddd");
+    //     res.send("delete")
+    //   }else{
+    //     res.send(" is not Admin cant deleted")
+    //   }}else{
+    //     res.send("error")
+    //     console.log("is not Admin");
+    //   }
+    // } catch (err) {
+    //   res.send(err , "err");
+    //   console.log("eeeeeeeeeeeeeeeeeeeeee",ree);
+    // }
+    // };
+module.exports = { getRents ,postRent,getRent ,deletRent,updateRent };
