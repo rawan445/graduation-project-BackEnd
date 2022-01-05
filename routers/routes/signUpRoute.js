@@ -13,5 +13,6 @@ signUpRoute.put("/user/:id",authentication,putUser); // update user  (Admin)
 
 //
 signUpRoute.post("/signUp", addUser); //add user
+// signUpRoute.post("/Questions", aa); //add 
 
 module.exports = signUpRoute;

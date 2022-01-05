@@ -41,7 +41,6 @@ const deletBuy=async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
   try {
-    const a = await BuyModel.findOne({_id: id})
     const del = await BuyModel.findOneAndDelete({ _id: id, user: user });
     if (del ){
       res.send("deleted")
@@ -56,6 +55,7 @@ const deletBuy=async(req,res)=>{
 // update buy
 const updateBuy = async (req , res) => {
     const id = req.params.id;
+    
     const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
     try {
       const updateBuy = await BuyModel.findOneAndUpdate( { _id: id},
@@ -66,27 +66,26 @@ const updateBuy = async (req , res) => {
     }
   };
 
-    //delete buy (Admin)
+    // delete buy (Admin)
     const deletBuyAdmin=async(req,res)=>{
       const id = req.params.id;
-    try {
-      const check = await userModel.findOne({})
-      const del = await BuyModel.findOneAndDelete({ _id: id });
-  
-      if(check.role == 1){
-  
-      if (del){
-        console.log(del,"dddddddd");
-        res.send(" (Admin) deleted")
-      }else{
-        res.send(" is not Admin cant deleted")
-      }}else{
-        res.send("error")
-        console.log("is not Admin");
+      console.log("id :",id);
+      try {
+        const a = await userModel.findOne({_id: user})
+        console.log("a" ,a);
+        console.log("del :",del);
+        if(a.role == 1){
+          if (del){
+          console.log(del,"dddddddd");
+          res.status(203).json(" (Admin) deleted")
+        }else{
+          res.send(" is not Admin cant deleted")
+        }}else{
+          res.send("error")
+        }
+      } catch (err) {
+        res.send(err , "err");
       }
-    } catch (err) {
-      res.send(err , "err");
-    }
     };
 
 module.exports = { getBuys ,postBuy,deletBuy,getBuy ,updateBuy ,deletBuyAdmin };

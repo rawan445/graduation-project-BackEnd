@@ -20,15 +20,11 @@ const addUser = async(req, res) => {
 const getUser = async (req,res)=>{
   try {
       const check = await userModel.findOne({})
-      if(check.role == 1){
+      console.log("check :",check);
         const  Buy = await userModel.find({});
         res.status(200).json( Buy)
         console.log("is Admin");
-      }else{
-        res.send("error")
-        console.log("is not Admin");
-
-      }
+    
       } catch (error){
         res.send(error)
         console.log("xxxxx");
@@ -54,16 +50,15 @@ const deletUser=async(req,res)=>{
   const user = req.token.userId;
   // console.log("user : ",user);
   try {
-    const check = await userModel.findOne({})
-    const a = await userModel.findOne({_id: id})
+    const a = await userModel.findOne({_id: user})
     console.log("a" ,a);
-    const del = await userModel.findOneAndDelete({ _id: id, user: user });
-    if(check.role == 1){
+    if(a.role == 1){
+      const del = await userModel.findOneAndDelete({ _id: id });
     if (del){
       console.log(del,"dddddddd");
-      res.send(" (Admin) deleted")
+      res.status(203).json(" (Admin) deleted")
     }else{
-      res.send(" is not Admin cant deleted")
+      res.send("can't find")
     }}else{
       res.send("error")
       console.log("is not Admin");
@@ -78,17 +73,16 @@ const deletUser=async(req,res)=>{
     const id = req.params.id;
     const{ name, email,role }= req.body;
     try {
-      const check = await userModel.findOne({})
-      if(check.role == 1){
       const updateBuy = await userModel.findOneAndUpdate( { _id: id },
      { name, email ,role }, { new: true });
       res.status(201).json(updateBuy);
-    }else{
-      res.send("error")
-      console.log("is not Admin");
-
-    }}catch (error) {
+   
+  }catch (error) {
       res.send({ message: error });
     }
   };
-module.exports = { addUser,getUser , deletUser ,putUser,get1User};
+
+
+//   Questions
+// answer
+module.exports = { addUser,getUser , deletUser ,putUser,get1User };

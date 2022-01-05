@@ -9,6 +9,7 @@ const comModel = new mongoose.Schema({
   location: { type: String },
   mobileNumber: { type: String },
   nameAqar: { type: String },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "userModel" },
 
   
 });
