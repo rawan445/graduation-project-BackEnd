@@ -7,7 +7,7 @@ const { getRents ,postRent,getRent ,deletRent ,updateRent  } = require("../contr
 
 //
 RentRoute.get("/Rents", getRents);//all Rents 
-RentRoute.get("/Rent/:id",authentication, getRent);// one Rent
+RentRoute.get("/Rent/:id", getRent);// one Rent
 RentRoute.post("/Rent",authentication, postRent); // add Rent
 RentRoute.delete("/Rent/:id",authentication ,deletRent)//delete Rent
 RentRoute.put("/Rent/:id",updateRent); // update Rent

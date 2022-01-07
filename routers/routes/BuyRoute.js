@@ -9,7 +9,7 @@ const { getBuys ,postBuy,deletBuy,getBuy ,updateBuy,deletBuyAdmin } = require(".
 
 //
 BuyRoute.get("/Buys", getBuys); //all buys 
-BuyRoute.get("/Buy/:id",authentication, getBuy); // one buy
+BuyRoute.get("/Buy/:id", getBuy); // one buy
 BuyRoute.post("/Buy",authentication, postBuy); // add buy
 BuyRoute.delete("/Buy/:id",authentication ,deletBuy) //delete buy
 BuyRoute.put("/Buy/:id",updateBuy); // update buy 

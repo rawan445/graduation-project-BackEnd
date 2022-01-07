@@ -17,10 +17,8 @@ const getcompany = async (req,res)=>{
   try {
        const  company = await companyModel.findOne({ _id:id}) //.populate("user")
       res.status(200).json(company)
-      console.log("rr");
   } catch (error){
       res.send(error)
-      console.log("eeee");
   }
 }
 

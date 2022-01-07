@@ -1,9 +1,14 @@
 const express = require("express");
 const QuestionsRoute = express.Router();
 
-const { getquest, postquest} = require("../controllers/Question");
+const { postanswer ,postQuest ,getQuest ,getanswer} = require("../controllers/Question");
 
-QuestionsRoute.get("/quest", getquest); // one buy
-QuestionsRoute.post("/Bquestuy", postquest); // add buy
+QuestionsRoute.post("/answer/:id", postanswer); // add buy
+QuestionsRoute.get("/answer", getanswer); // add buy
+
+QuestionsRoute.post("/Quest", postQuest); // add buy
+QuestionsRoute.get("/Quest", getQuest); // add buy
+
+
 
 module.exports = QuestionsRoute;

@@ -10,7 +10,7 @@ const { getcompanys ,getcompany,postcompany,deletcompany ,updatecompany,deletcom
 
 //
 companyRoute.get("/companys", getcompanys); //all companys 
-companyRoute.get("/company/:id",authentication, getcompany); // one company 11
+companyRoute.get("/company/:id", getcompany); // one company 11
 companyRoute.post("/company",authentication, postcompany); // add company 
 companyRoute.delete("/company/:id",authentication ,deletcompany) //delete company 
 companyRoute.put("/company/:id",updatecompany); // update company 
