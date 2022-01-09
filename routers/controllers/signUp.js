@@ -21,8 +21,8 @@ const getUser = async (req,res)=>{
   try {
       const check = await userModel.findOne({})
       console.log("check :",check);
-        const  Buy = await userModel.find({});
-        res.status(200).json( Buy)
+        const  user = await userModel.find({});
+        res.status(200).json( user)
         console.log("is Admin");
     
       } catch (error){
@@ -36,9 +36,9 @@ const getUser = async (req,res)=>{
 const get1User= async (req,res)=>{
   const {id} = req.params
   try {
-       const  Buy = await userModel.findOne({ _id:id})
-       console.log(Buy);
-      res.status(200).json( Buy)
+       const  user = await userModel.findOne({ _id:id})
+       console.log(user);
+      res.status(200).json( user)
   } catch (error){
       res.send(error)
   }
@@ -82,7 +82,4 @@ const deletUser=async(req,res)=>{
     }
   };
 
-
-//   Questions
-// answer
 module.exports = { addUser,getUser , deletUser ,putUser,get1User };

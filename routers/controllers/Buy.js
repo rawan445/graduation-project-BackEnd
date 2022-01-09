@@ -1,5 +1,4 @@
 const BuyModel= require("../../db/models/BuyModel")
-const userModel= require("../../db/models/userModel")
 
 // all buys
 const getBuys = async (req,res)=>{
@@ -69,23 +68,18 @@ const updateBuy = async (req , res) => {
     // delete buy (Admin)
     const deletBuyAdmin=async(req,res)=>{
       const id = req.params.id;
-      console.log("id :",id);
+      console.log(id);
       try {
-        const a = await userModel.findOne({_id: user})
-        console.log("a" ,a);
-        console.log("del :",del);
-        if(a.role == 1){
-          if (del){
-          console.log(del,"dddddddd");
-          res.status(203).json(" (Admin) deleted")
+        const del = await BuyModel.findOneAndDelete({ _id: id });
+        if (del ){
+          res.send("deleted")
         }else{
-          res.send(" is not Admin cant deleted")
-        }}else{
-          res.send("error")
+          res.send("cant deleted")
         }
       } catch (err) {
         res.send(err , "err");
-      }
+      }    
+    
     };
 
 module.exports = { getBuys ,postBuy,deletBuy,getBuy ,updateBuy ,deletBuyAdmin };

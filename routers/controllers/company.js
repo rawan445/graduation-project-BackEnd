@@ -69,24 +69,18 @@ const updatecompany = async (req , res) => {
     //delete company (Admin)
     const deletcompanyAdmin=async(req,res)=>{
       const id = req.params.id;
-    try {
-      const check = await companyModel.findOne({})
-      const del = await companyModel.findOneAndDelete({ _id: id });
-  
-      if(check.role == 1){
-  
-      if (del){
-        console.log(del,"dddddddd");
-        res.send(" (Admin) deleted")
-      }else{
-        res.send(" is not Admin cant deleted")
-      }}else{
-        res.send("error")
-        console.log("is not Admin");
-      }
-    } catch (err) {
-      res.send(err , "err");
-    }
+      console.log(id);
+      try {
+        const del = await companyModel.findOneAndDelete({ _id: id });
+        if (del ){
+          res.send("deleted")
+        }else{
+          res.send("cant deleted")
+        }
+      } catch (err) {
+        res.send(err , "err");
+      }    
+    
     };
 
 module.exports = {  getcompanys ,getcompany,postcompany,deletcompany ,updatecompany,deletcompanyAdmin};

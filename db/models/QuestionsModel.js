@@ -1,7 +1,4 @@
-// const Joi = require("joi");
-const { boolean } = require("joi");
 const mongoose = require("mongoose");
-
 
 const QuestionsModel = new mongoose.Schema({
 
