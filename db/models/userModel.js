@@ -7,8 +7,6 @@ const userModel = new mongoose.Schema({
   name: { type: String , required:true , minlength:3, maxlength:44 },
   email: { type: String ,unique:true , required:true ,minlength:3, maxlength:255  },
   password: { type: String , required:true  ,minlength:8, maxlength:1024  },
-  Questions:{type: String },
-  answer:[{type: String }],
   role:{ type: Number, default : 3,},
   // isVerified:{ type: boolean},
 
@@ -24,4 +22,5 @@ const userModel = new mongoose.Schema({
 //   return Joi.validate(user,schema)
 // }
 // exports.userValidate=userValidate
+
 module.exports = mongoose.model("userModel", userModel );

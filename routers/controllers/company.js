@@ -84,3 +84,5 @@ const updatecompany = async (req , res) => {
     };
 
 module.exports = {  getcompanys ,getcompany,postcompany,deletcompany ,updatecompany,deletcompanyAdmin};
+
+

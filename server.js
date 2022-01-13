@@ -11,15 +11,17 @@ app.use(cors());
 const BuyRoute = require("./routers/routes/BuyRoute");
 const RentRoute = require("./routers/routes/RentRoute");
 const companyRoute = require("./routers/routes/companyRoute");
-const QuestionsRoute= require("./routers/routes/QuestionsRoute");
 const signUpRoute = require("./routers/routes/signUpRoute");
 const loginRoute  = require("./routers/routes/loginRoute")
+const consultationRoute  = require("./routers/routes/consultationRoute")
+
 app.use(BuyRoute);
 app.use(RentRoute)
 app.use(signUpRoute);
 app.use(loginRoute);
 app.use(companyRoute);
-app.use(QuestionsRoute);
+app.use(consultationRoute);
+
 
 
 

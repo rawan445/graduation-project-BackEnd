@@ -23,9 +23,9 @@ const getBuy = async (req,res)=>{
 
 // add buy
 const postBuy=async(req,res)=>{
-    const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
+    const{name,  price,   img,  location,  space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge}= req.body;
     const user =req.token.userId
-    const nrwAqar = new BuyModel({name,  price,img,location,space,  city, mobileNumber, description ,user})
+    const nrwAqar = new BuyModel({name,  price,img,location,space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge,user})
     try {
         const saved= await nrwAqar.save()
         res.status(200).json(saved)
@@ -55,10 +55,10 @@ const deletBuy=async(req,res)=>{
 const updateBuy = async (req , res) => {
     const id = req.params.id;
     
-    const{name,  price,   img,  location,  space,  city, mobileNumber, description}= req.body;
+    const{name,  price,   img,  location,  space,  city, mobileNumber, description,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge}= req.body;
     try {
       const updateBuy = await BuyModel.findOneAndUpdate( { _id: id},
-     { name,  price,   img,  location,  space,  city, mobileNumber, description }, { new: true });
+     { name,  price,   img,  location,  space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge}, { new: true });
       res.status(201).json(updateBuy);
     } catch (error) {
       res.send({ message: error });
@@ -82,4 +82,21 @@ const updateBuy = async (req , res) => {
     
     };
 
-module.exports = { getBuys ,postBuy,deletBuy,getBuy ,updateBuy ,deletBuyAdmin };
+    const AddImg = async (req, res) => {
+      const { id } = req.params;
+      const { img} = req.body;
+      console.log("id",id ,"img", img);
+      
+      try {
+          const addimg = await BuyModel.findOneAndUpdate(
+            { _id:id },{ $push: { img1:img } },{ new:true }
+          );
+          res.status(201).json(addimg.img1);
+          console.log("addimg.img1" ,addimg.img1);
+      } catch (err) {
+        res.send(err);
+        console.log("err");
+      }
+    };
+
+module.exports = { getBuys ,postBuy,deletBuy,getBuy ,updateBuy ,deletBuyAdmin,AddImg };
