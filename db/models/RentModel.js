@@ -4,6 +4,7 @@ const RentModel = new mongoose.Schema({
   name: { type: String },
   price: { type: String },
   img: { type: String },
+  img1: { type: Array },
   location: { type: String },
   space: { type: String },
   city: { type: String },

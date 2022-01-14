@@ -1,6 +1,6 @@
 const BuyModel= require("../../db/models/BuyModel")
 
-// all buys
+//Get all buys Aqar
 const getBuys = async (req,res)=>{
     try {
         const  Buy = await BuyModel.find({});
@@ -10,7 +10,7 @@ const getBuys = async (req,res)=>{
     }
 }
 
-// one buy
+//Get one buy Aqar
 const getBuy = async (req,res)=>{
   const {id} = req.params
   try {
@@ -21,7 +21,7 @@ const getBuy = async (req,res)=>{
   }
 }
 
-// add buy
+// add buy Aqar
 const postBuy=async(req,res)=>{
     const{name,  price,   img,  location,  space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge}= req.body;
     const user =req.token.userId
@@ -35,7 +35,7 @@ const postBuy=async(req,res)=>{
     }
 }
 
-//delete buy
+//delete buy Aqar
 const deletBuy=async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
@@ -51,7 +51,7 @@ const deletBuy=async(req,res)=>{
   }
   };
 
-// update buy
+// update buy Aqar
 const updateBuy = async (req , res) => {
     const id = req.params.id;
     
@@ -65,7 +65,7 @@ const updateBuy = async (req , res) => {
     }
   };
 
-    // delete buy (Admin)
+    // delete buy Aqar (Admin)
     const deletBuyAdmin=async(req,res)=>{
       const id = req.params.id;
       console.log(id);
@@ -81,7 +81,7 @@ const updateBuy = async (req , res) => {
       }    
     
     };
-
+//add extra Img Rent Aqar
     const AddImg = async (req, res) => {
       const { id } = req.params;
       const { img} = req.body;

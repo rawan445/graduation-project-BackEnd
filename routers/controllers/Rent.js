@@ -1,6 +1,6 @@
 const RentModel= require("../../db/models/RentModel")
 
-//all Rents 
+//Get all Rents Aqar
 const getRents = async (req,res)=>{
     try {
          const  Rent = await RentModel.find({});
@@ -9,26 +9,25 @@ const getRents = async (req,res)=>{
         res.send(error)
     }
 }
-// one Rent
+// Get one Rent Aqar
 const getRent = async (req,res)=>{
     const {id} = req.params
     try {
          const  Rent = await RentModel.findOne({ _id:id})
-         console.log(Rent);
+        //  console.log(Rent);
         res.status(200).json( Rent)
     } catch (error){
         res.send(error)
     }
   }
 
- // add Rent
+ // add Rent Aqar
    const postRent=async(req,res)=>{
     const{name,  price,   img,  location,  space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge}= req.body;
     const user =req.token.userId
     const newSale = new RentModel({name,  price,   img,  location,  space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge ,user})
     try {
         const saved= await newSale.save()
-        //  const Rent = await RentModel.find({}).populate("user")
         res.status(200).json(saved)
   
     } catch (error) {
@@ -36,17 +35,17 @@ const getRent = async (req,res)=>{
     }
 }
 
-//delete Rent
+//delete Rent Aqar
 const deletRent=async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
   console.log("user : ",user);
   try {
     const a = await RentModel.findOne({_id: id})
-    console.log("a" ,a);
+    // console.log("a" ,a);
     const del = await RentModel.findOneAndDelete({ _id: id, user: user });
-    console.log("id : ",id);
-    console.log("dal : ", del);
+    // console.log("id : ",id);
+    // console.log("dal : ", del);
     if (del){
       console.log(del,"dddddddd");
       res.send("deleted")
@@ -58,7 +57,7 @@ const deletRent=async(req,res)=>{
   }
   };
 
-  // update Rent
+  // update Rent Aqar
 const updateRent = async (req , res) => {
   const id = req.params.id;
   const{name,  price,   img,  location,  space,  city, mobileNumber, description,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge}= req.body;
@@ -72,7 +71,7 @@ const updateRent = async (req , res) => {
 };
 
 
-// delete Rent (Admin)
+// delete Rent Aqar (Admin)
 const deletRentAdmin=async(req,res)=>{
   const id = req.params.id;
   console.log(id);
@@ -87,4 +86,21 @@ const deletRentAdmin=async(req,res)=>{
     res.send(err , "err");
   }    
 };
-module.exports = { getRents ,postRent,getRent ,deletRent,updateRent ,deletRentAdmin};
+//add extra Img Rent Aqar
+const AddImg2 = async (req, res) => {
+  const { id } = req.params;
+  const { img} = req.body;
+  console.log("id",id ,"img", img);
+  
+  try {
+      const addimg = await RentModel.findOneAndUpdate(
+        { _id:id },{ $push: { img1:img } },{ new:true }
+      );
+      res.status(201).json(addimg.img1);
+      console.log("addimg" ,addimg.img1);
+  } catch (err) {
+    res.send(err);
+    console.log("err");
+  }
+};
+module.exports = { getRents ,postRent,getRent ,deletRent,updateRent ,deletRentAdmin ,AddImg2};

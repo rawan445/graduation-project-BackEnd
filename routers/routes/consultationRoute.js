@@ -1,18 +1,21 @@
 const express = require("express");
 const consultationRoute = express.Router();
-//
-const {authentication} = require("../middlewares/authentication")
-//
-const { getconsultations ,getanswer,Addconsultations,Addanswer} = require("../controllers/consultation");
+const { authentication } = require("../middlewares/authentication"); //To verify that the user is registered on the site (token)
+const {
+  getconsultations,
+  getanswer,
+  Addconsultations,
+  Addanswer,
+} = require("../controllers/consultation");//Send the name of the function
 
+//Users feature
+consultationRoute.get("/consultations", getconsultations); // Get consultations
+consultationRoute.get("/answer", getanswer); //Get  answer
 
+consultationRoute.post("/consultations", authentication, Addconsultations); //add consultations
+consultationRoute.post("/answer/:id", authentication, Addanswer); //add answer
 
-//
-consultationRoute.get("/consultations", getconsultations); //all buys 
-consultationRoute.get("/answer", getanswer); //all buys 
-
-consultationRoute.post("/consultations", Addconsultations);
-consultationRoute.post("/answer/:id", Addanswer);
-
+// // Admin feature
+// RentRoute.delete("//:id",a)
 
 module.exports = consultationRoute;
