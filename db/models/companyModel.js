@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const comModel = new mongoose.Schema({
   name: { type: String , },
   logo: { type: String },
+  email: { type: String },
+  website: { type: String },
   city: { type: String  },
   description: { type: String  },
   location: { type: String },

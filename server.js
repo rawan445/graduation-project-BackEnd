@@ -1,10 +1,11 @@
-require("dotenv").config();
 const express = require("express");
-const app = express();
-require("./db/db");
-app.use(express.json());
 const cors = require("cors");
+require('dotenv').config()
+
+const app = express();
+app.use(express.json());
 app.use(cors());
+require("./db/db");
 
 ///////////////////////////////
 
@@ -27,6 +28,6 @@ app.use(consultationRoute);
 
 ////////////////////
 const Port = 5000;
-app.listen(Port, () => {
+app.listen(process.env.PORT || Port, () => {
   console.log("server run on 5000 port");
 });

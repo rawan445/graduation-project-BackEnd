@@ -14,7 +14,7 @@ const getBuys = async (req,res)=>{
 const getBuy = async (req,res)=>{
   const {id} = req.params
   try {
-       const  Buy = await BuyModel.findOne({ _id:id}).populate("user")
+       const  Buy = await BuyModel.findOne({ _id:id})
       res.status(200).json( Buy)
   } catch (error){
       res.send(error)

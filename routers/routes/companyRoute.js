@@ -19,7 +19,7 @@ companyRoute.post("/company", authentication, postcompany); // add company
 companyRoute.delete("/company/:id", authentication, deletcompany); //delete company
 companyRoute.put("/company/:id", updatecompany); // update company
 
-// Admin feature
+// Admin featureء
 
 companyRoute.delete("/companyAdmin/:id", authentication, deletcompanyAdmin); //delete buy (Admin)
 

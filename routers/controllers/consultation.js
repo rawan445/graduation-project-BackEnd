@@ -9,14 +9,6 @@ const getconsultations = async (req,res)=>{
         res.send(error)     
     }
 }
-const getanswer = async (req,res)=>{
-    try {
-        const  Buy = await consultationModel.find({});
-        res.status(200).json( Buy)
-      } catch (error){
-        res.send(error)     
-    }
-}
 
 const Addconsultations=async(req,res)=>{
     const{consultation}= req.body;
@@ -32,22 +24,27 @@ const Addconsultations=async(req,res)=>{
 
 const Addanswer=async(req,res)=>{
 
-    const { answer } = req.body;
+
+ const { answer } = req.body;
     const { id } = req.params;
-    console.log("id :",id, "answer :",answer);
+    const username=req.token.userName
+    console.log("id :",id, "answer :",answer ,'username :' ,username);
     try {
+
+     
       const addanswer = await consultationModel.findOneAndUpdate(
           { _id: id },
-          { $push: { answer } },
+          { $push: { answer ,username} },
           { new: true }
         )
-  
+      
       res.status(201).json(addanswer);
       console.log(addanswer);
+      
     } catch (error) {
       res.send(error);
     }
 }
 
 
-module.exports = {getconsultations ,getanswer,Addconsultations,Addanswer};
+module.exports = {getconsultations ,Addconsultations,Addanswer};

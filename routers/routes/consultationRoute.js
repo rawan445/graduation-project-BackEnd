@@ -3,14 +3,12 @@ const consultationRoute = express.Router();
 const { authentication } = require("../middlewares/authentication"); //To verify that the user is registered on the site (token)
 const {
   getconsultations,
-  getanswer,
   Addconsultations,
   Addanswer,
 } = require("../controllers/consultation");//Send the name of the function
 
 //Users feature
 consultationRoute.get("/consultations", getconsultations); // Get consultations
-consultationRoute.get("/answer", getanswer); //Get  answer
 
 consultationRoute.post("/consultations", authentication, Addconsultations); //add consultations
 consultationRoute.post("/answer/:id", authentication, Addanswer); //add answer

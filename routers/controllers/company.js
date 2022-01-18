@@ -24,9 +24,9 @@ const getcompany = async (req,res)=>{
 
 // add company
 const postcompany=async(req,res)=>{
-    const{  name ,logo,city,description,location,mobileNumber, nameAqar}= req.body;
+    const{  name ,logo,city,description,location,mobileNumber, nameAqar ,email, website}= req.body;
     const user =req.token.userId
-    const newcompany = new companyModel({ name ,logo,city,description,location,mobileNumber, nameAqar ,user})
+    const newcompany = new companyModel({ name ,logo,city,description,location,mobileNumber, nameAqar,email, website ,user})
     try {
         const saved= await newcompany.save()
         res.status(200).json(saved)
@@ -82,6 +82,7 @@ const updatecompany = async (req , res) => {
       }    
     
     };
+
 
 module.exports = {  getcompanys ,getcompany,postcompany,deletcompany ,updatecompany,deletcompanyAdmin};
 
