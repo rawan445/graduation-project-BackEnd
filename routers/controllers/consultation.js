@@ -15,7 +15,8 @@ const Addconsultations=async(req,res)=>{
     const nrwAqar = new consultationModel({consultation})
     try {
         const saved= await nrwAqar.save()
-        res.status(200).json(saved)
+        const  qq = await consultationModel.find({});
+        res.status(200).json(qq)
   
     } catch (error) {
         res.send(error)

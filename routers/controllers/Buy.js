@@ -23,9 +23,11 @@ const getBuy = async (req,res)=>{
 
 // add buy Aqar
 const postBuy=async(req,res)=>{
+  const user =req.token.userId
+  const payload=req.token.userName
+  console.log("ddd: ",payload);
     const{name,  price,   img,  location,  space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge}= req.body;
-    const user =req.token.userId
-    const nrwAqar = new BuyModel({name,  price,img,location,space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge,user})
+    const nrwAqar = new BuyModel({name,  price,img,location,space,  city, mobileNumber, description ,bedRooms,LivingRoom ,bathRoom , roleA, propertyAge,user,payload})
     try {
         const saved= await nrwAqar.save()
         res.status(200).json(saved)

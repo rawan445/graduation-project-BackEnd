@@ -27,6 +27,7 @@ app.use(consultationRoute);
 
 
 ////////////////////
+console.log(process.env.PORT);
 const Port = 5000;
 app.listen(process.env.PORT || Port, () => {
   console.log("server run on 5000 port");

@@ -10,7 +10,7 @@ const BuyModel = new mongoose.Schema({
   city: { type: String },
   mobileNumber: { type: String },
   description: { type: String },
-  date: { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now  },
   bedRooms:{type: String },
   LivingRoom:{type: String },
   bathRoom:{type: String },
