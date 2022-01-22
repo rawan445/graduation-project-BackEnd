@@ -3,10 +3,10 @@ const userModel = require("../../db/models/userModel");
 
 //add user && Log in to the site
 const addUser = async (req, res) => {
-  let { name, email, password } = req.body;
+  let { name, email, password,role } = req.body;
   try {
     password = await bcrypt.hash(password, 10);
-    const newUser = new userModel({ name, email, password });
+    const newUser = new userModel({ name, email, password ,role});
     const response = await newUser.save();
     res.status(201).json(response);
   } catch (error) {
